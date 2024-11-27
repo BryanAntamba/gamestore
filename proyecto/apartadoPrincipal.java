@@ -64,11 +64,9 @@ public class apartadoPrincipal {
 
         JMenu cliente = new JMenu("Usuario");
         JMenuItem registro = new JMenuItem("Registrase");
-        JMenuItem Sesion = new JMenuItem("Iiniciar Sesion");
 
         menuBar.add(cliente);
         cliente.add(registro);
-        cliente.add(Sesion);
 
         JMenu help = new JMenu("Ayuda");
         JMenuItem soporte = new JMenuItem("Soporte");
@@ -103,29 +101,16 @@ public class apartadoPrincipal {
             if (option == JOptionPane.OK_OPTION) {
                 // Obtener la contraseña como un arreglo de caracteres
                 char[] contraseña = contraseñaField.getPassword();
-                while (contraseña.length==0) {
-                    
                 if (contraseña.length == 0) {
                     JOptionPane.showMessageDialog(ventana, "Debe ingresar una contraseña.", "Error en la contraseña",
                             JOptionPane.ERROR_MESSAGE);
                     return;
-                } else {
-                    String contraseñaPrivate = new String(contraseña);
                 }
-            }
                  // Convertir el arreglo de caracteres a String
                 String contraseñaPrivate = new String(contraseña);
                 JOptionPane.showMessageDialog(
                         ventana,
-                        "Datos Ingresados:\n"
-                                + "Nombre: " + nombre + "\n"
-                                + "Fecha de Nacimiento: " + fechaNacimiento + "\n"
-                                + "Teléfono: " + telefono + "\n"
-                                + "Correo Electrónico: " + correo + "\n"
-                                + "Contraseña: " + contraseñaPrivate,
-                        "Registro procesado",
-                        JOptionPane.INFORMATION_MESSAGE);
-
+                        "Datos Ingresados:\n" + "Nombre: " + nombre + "\n"+ "Fecha de Nacimiento: " + fechaNacimiento + "\n" + "Teléfono: " + telefono + "\n"+ "Correo Electrónico: " + correo + "\n" + "Contraseña: " + contraseñaPrivate, "Registro procesado", JOptionPane.INFORMATION_MESSAGE);
                 // Actualizar la interfaz gráfica de usuario
                 ventana.revalidate();
                 ventana.repaint();
