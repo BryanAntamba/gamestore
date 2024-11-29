@@ -76,19 +76,64 @@ public class apartadoPrincipal {
 
         // Acción para el botón de registro
         registro.addActionListener(e -> {
-            String nombre = JOptionPane.showInputDialog(ventana, "Ingrese un Nombre de Uusuario:");
-            if (nombre == null)
-                return;
-            String fechaNacimiento = JOptionPane.showInputDialog(ventana,
-                    "Ingrese su Fecha de Nacimiento (DD/MM/AAAA):");
-            if (fechaNacimiento == null)
-                return;
-            String telefono = JOptionPane.showInputDialog(ventana, "Ingrese su Teléfono:");
-            if (telefono == null)
-                return;
-            String correo = JOptionPane.showInputDialog(ventana, "Ingrese su Correo Electrónico:");
-            if (correo == null)
-                return;
+                // Mensaje de registro cancelado
+                String cancelMessage = "El registro ha sido cancelado.";
+            
+                // Validación para el nombre
+                String nombre = null;
+                while (true) {
+                    nombre = JOptionPane.showInputDialog(ventana, "Ingrese un Nombre de Usuario:");
+                    if (nombre == null) {
+                        JOptionPane.showMessageDialog(ventana, cancelMessage, "Registro cancelado", JOptionPane.INFORMATION_MESSAGE);
+                        return; // Salir del registro
+                    }
+                    if (nombre.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(ventana, "Debe ingresar un Nombre de Usuario.", "Error de registro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        break;
+                    }
+                }
+            
+                String fechaNacimiento;
+                while (true) {
+                    fechaNacimiento = JOptionPane.showInputDialog(ventana, "Ingrese su Fecha de Nacimiento (DD/MM/AAAA):");
+                    if (fechaNacimiento == null) // Cancelar
+                        return;
+                    if (fechaNacimiento.matches("\\d{8}")) // Validar 8 dígitos
+                        break;
+                    JOptionPane.showMessageDialog(ventana, "Por favor, ingrese una fecha válida de 8 dígitos (DD/MM/AAAA).", 
+                        "Error de registro", JOptionPane.ERROR_MESSAGE);
+                }
+                String telefono = null;
+                while (true) {
+                    telefono = JOptionPane.showInputDialog(ventana, "Ingrese su Teléfono:");
+                    if (telefono == null) {
+                        JOptionPane.showMessageDialog(ventana, cancelMessage, "Registro cancelado", JOptionPane.INFORMATION_MESSAGE);
+                        return; // Salir del registro
+                    }
+                    if (!telefono.matches("\\d{10}")) {
+                        JOptionPane.showMessageDialog(ventana, "Debe ingresar un número de teléfono válido de 10 dígitos.", 
+                            "Error de registro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        break;
+                    }
+                }
+            
+                // Validación para el correo
+                String correo = null;
+                while (true) {
+                    correo = JOptionPane.showInputDialog(ventana, "Ingrese su Correo Electrónico:");
+                    if (correo == null) {
+                        JOptionPane.showMessageDialog(ventana, cancelMessage, "Registro cancelado", JOptionPane.INFORMATION_MESSAGE);
+                        return; // Salir del registro
+                    }
+                    if (!correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
+                        JOptionPane.showMessageDialog(ventana, "Ingrese su correo correctamente.", 
+                            "Error de registro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        break;
+                    }
+                }
             // Crear un JPasswordField para capturar la contraseña
             JPasswordField contraseñaField = new JPasswordField();
             int option = JOptionPane.showConfirmDialog(
@@ -102,28 +147,28 @@ public class apartadoPrincipal {
                 // Obtener la contraseña como un arreglo de caracteres
                 char[] contraseña = contraseñaField.getPassword();
                 if (contraseña.length == 0) {
-                    JOptionPane.showMessageDialog(ventana, "Debe ingresar una contraseña.", "Error en la contraseña",
-                            JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(ventana, "Debe ingresar una contraseña.",
+                            "Error de registro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                 // Convertir el arreglo de caracteres a String
+
+                // Convertir el arreglo de caracteres a String
                 String contraseñaPrivate = new String(contraseña);
                 JOptionPane.showMessageDialog(
-                        ventana,
-                        "Datos Ingresados:\n" + "Nombre: " + nombre + "\n"+ "Fecha de Nacimiento: " + fechaNacimiento + "\n" + "Teléfono: " + telefono + "\n"+ "Correo Electrónico: " + correo + "\n" + "Contraseña: " + contraseñaPrivate, "Registro procesado", JOptionPane.INFORMATION_MESSAGE);
+                        ventana,"Nombre: " + nombre + "\n" +"Fecha de Nacimiento: " + fechaNacimiento + "\n" + "Teléfono: " + telefono + "\n" +"Correo Electrónico: " + correo + "\n" +"Contraseña: " + contraseñaPrivate,"Registro exitoso",JOptionPane.INFORMATION_MESSAGE);
+
                 // Actualizar la interfaz gráfica de usuario
                 ventana.revalidate();
                 ventana.repaint();
             }
         });
+         // Agregar todos los componentes al panel de fondo
+         fondo.add(label);
 
-        // Agregar todos los componentes al panel de fondo
-        fondo.add(label);
-
-        // Configurar el panel como contenido de la ventana
-        ventana.setContentPane(fondo);
-
-        // Hacer visible la ventana
-        ventana.setVisible(true);
+         // Configurar el panel como contenido de la ventana
+         ventana.setContentPane(fondo);
+ 
+         // Hacer visible la ventana
+         ventana.setVisible(true);
     }
 }
