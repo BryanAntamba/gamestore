@@ -42,8 +42,7 @@ public class apartadoPrincipal {
 
         // Crear y configurar el subtítulo
         JLabel label1 = new JLabel(
-                "<html>Bienvenido a GameStore donde podrás encontrar los mejores juegos<br>de acción, terror y aventura.</html>",
-                SwingConstants.CENTER);
+                "<html>Bienvenido a GameStore donde podrás encontrar los mejores juegos<br>de acción, terror y aventura.</html>",SwingConstants.CENTER);
         label1.setFont(new Font("Arial", Font.BOLD, 20));
         label1.setForeground(Color.WHITE);
 
@@ -54,9 +53,9 @@ public class apartadoPrincipal {
         // Listener para ajustar la posición dinámica al redimensionar
         ventana.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
-                int anchoVentana = ventana.getWidth();
-                label.setBounds((anchoVentana - 300) / 2, 40, 300, 40); // Centrado
-                label1.setBounds((anchoVentana - 800) / 2, 250, 800, 60); // Justo debajo del título
+                int anchoDeVentana = ventana.getWidth();
+                label.setBounds((anchoDeVentana - 300) / 2, 40, 300, 40); // Centrado
+                label1.setBounds((anchoDeVentana - 800) / 2, 250, 800, 60); // Justo debajo del título
             }
         });
 
@@ -92,17 +91,34 @@ public class apartadoPrincipal {
         JMenuItem registro = new JMenuItem("Registrarse");
         cliente.add(registro);
         menuBar.add(cliente);
+
+        soporte.addActionListener(e -> {
+            soporteTecnico.VentanaSoporte();
+        });
         JMenu responsables = new JMenu("Creadores");
         JMenuItem creadores = new JMenuItem("Esteban");
+        creadores.addActionListener(e -> {
+            esteban.VentanaCreadorCuatro();
+        });
         JMenuItem creadores2 = new JMenuItem("Erick");
+        creadores2.addActionListener(e -> {
+            erick.VentanaCreadorTres();
+        });
         JMenuItem creadores3 = new JMenuItem("David");
+        creadores3.addActionListener(e -> {
+            david.VentanaCreadorDos();
+        });
         JMenuItem creadores4 = new JMenuItem("Bryan");
+        creadores4.addActionListener(e -> {
+            bryan.VentanaCreadorUno();
+        });
 
         menuBar.add(responsables);
         responsables.add(creadores);
         responsables.add(creadores2);
         responsables.add(creadores3);
         responsables.add(creadores4);
+        
 
         JMenu tabla = new JMenu("tablas");
         JMenuItem tablas = new JMenuItem("visualizar tabla");
@@ -117,16 +133,19 @@ public class apartadoPrincipal {
             Registro nuevoUsuario = Registro.realizarRegistro(ventana);
             if (nuevoUsuario != null) {
                 JOptionPane.showMessageDialog(
-                        ventana,
-                        "Registro Exitoso:\n" +
-                                "Nombre: " + nuevoUsuario.getNombre() + "\n" +
-                                "Fecha de Nacimiento: " + nuevoUsuario.getFechaNacimiento() + "\n" +
-                                "Teléfono: " + nuevoUsuario.getTelefono() + "\n" +
-                                "Correo: " + nuevoUsuario.getCorreo(),
-                        "Registro Completado",
-                        JOptionPane.INFORMATION_MESSAGE);
+                    ventana,
+                    "Registro Exitoso:\n" +
+                    "Nombre: " + nuevoUsuario.getNombre() + "\n" +
+                    "Fecha de Nacimiento: " + nuevoUsuario.getFechaNacimiento() + "\n" +
+                    "Teléfono: " + nuevoUsuario.getTelefono() + "\n" +
+                    "Correo: " + nuevoUsuario.getCorreo() + "\n" +
+                    "Contraseña: " + nuevoUsuario.getContraseña(), // Aquí incluimos la contraseña
+                    "Registro Completado",
+                    JOptionPane.INFORMATION_MESSAGE
+                );
             }
         });
+        
 
         ventana.setJMenuBar(menuBar);
         ventana.setVisible(true);
@@ -138,5 +157,10 @@ public class apartadoPrincipal {
 
         // Hacer visible la ventana
         ventana.setVisible(true);
+    }
+
+    public static void apartadoPrincipal() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'apartadoPrincipal'");
     }
 }
